@@ -1,104 +1,62 @@
-set nocompatible
-"""vundle related
-filetype off                   " required!
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-" let Vundle manage Vundle
-" required! 
-Plugin 'gmarik/vundle'
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
 
 " My Bundles here:
 "
 " original repos on github
-"""Bundle 'Valloric/YouCompleteMe'
 Plugin 'othree/eregex.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'majutsushi/tagbar'
-"""Bundle 'tpope/vim-fugitive'
-"""Bundle 'Lokaltog/vim-easymotion'
-"""Bundle 'Lokaltog/vim-powerline'
-"""Bundle 'scrooloose/syntastic'
-Bundle 'jimenezrick/vimerl'
+Plugin 'tpope/vim-fugitive'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'Shougo/neocomplete.vim'
+Plugin 'bling/vim-airline'
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'mbbill/undotree'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'fatih/vim-go'
 
-" vim-scripts repos
-Bundle 'L9'
-"""Bundle 'FuzzyFinder'
-"""Bundle 'camelcasemotion'
-"""Bundle 'AutoTag'
-Bundle 'bufexplorer.zip'
-"""Bundle 'argtextobj.vim'
-Bundle 'AutoClose'
-"""Bundle 'bufkill.vim'
-" non github repos'
-"""Bundle 'git://git.wincent.com/command-t.git'
-" ...
-
-"""fish related
-set shell=/bin/sh
-set noshelltemp
-
-"""golang related
-"""set rtp+=$GOROOT/misc/vim
-
-filetype plugin indent on     " required!
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
 
 """easymotion related
-"""let g:EasyMotion_keys='hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
-"""let g:EasyMotion_leader_key="_"
-"""let g:EasyMotion_grouping=1
-"""hi EasyMotionTarget ctermbg=none ctermfg=red
-"""hi EasyMotionShade  ctermbg=none ctermfg=blue
-"""
-""""""tagbar related
-"""let g:tagbar_type_rust = {
-"""    \ 'ctagstype' : 'rust',
-"""    \ 'kinds'     : [
-"""        \ 'T:types',
-"""        \ 's:structs',
-"""        \ 'c:classes',
-"""        \ 'm:modules',
-"""        \ 'C:consts',
-"""        \ 't:traits',
-"""        \ 'i:impls',
-"""        \ 'f:functions',
-"""    \ ]
-"""    \ }
-"""let g:tagbar_type_go = {
-"""    \ 'ctagstype' : 'go',
-"""    \ 'kinds'     : [
-"""        \ 'p:package',
-"""        \ 'i:imports:1',
-"""        \ 'c:constants',
-"""        \ 'v:variables',
-"""        \ 't:types',
-"""        \ 'n:interfaces',
-"""        \ 'w:fields',
-"""        \ 'e:embedded',
-"""        \ 'm:methods',
-"""        \ 'r:constructor',
-"""        \ 'f:functions'
-"""    \ ],
-"""    \ 'sro' : '.',
-"""    \ 'kind2scope' : {
-"""        \ 't' : 'ctype',
-"""        \ 'n' : 'ntype'
-"""    \ },
-"""    \ 'scope2kind' : {
-"""        \ 'ctype' : 't',
-"""        \ 'ntype' : 'n'
-"""    \ },
-"""    \ 'ctagsbin'  : 'gotags',
-"""    \ 'ctagsargs' : '-sort -silent'
-"""\ }
+let g:EasyMotion_keys='hjklasdfgyuiopqwertnmzxcvbHJKLASDFGYUIOPQWERTNMZXCVB'
+let g:EasyMotion_leader_key="_"
+let g:EasyMotion_grouping=1
+hi EasyMotionTarget ctermbg=none ctermfg=red
+hi EasyMotionShade  ctermbg=none ctermfg=blue
+"""neocomplete related
+let g:neocomplete#enable_at_startup = 1
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" Close popup by <Space>.
+inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
 
-"""My favorite settings
 set number
 set ruler
 set cmdheight=2
 set laststatus=2
-set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
+"set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
 set title
 set linespace=0
 set wildmenu
@@ -138,8 +96,23 @@ nmap k gk
 
 map <C-d> <Del>
 map <C-n> :NERDTreeToggle<CR>
+map <C-u> :UndotreeToggle<CR>
 map <C-m> :TagbarToggle<CR>
 map ,l <Leader>bv
+let mapleader = ","
+
+"""golang related
+au FileType go nmap <leader>gr <Plug>(go-run)
+au FileType go nmap <leader>gb <Plug>(go-build)
+au FileType go nmap <leader>gt <Plug>(go-test)
+au FileType go nmap <leader>gc <Plug>(go-coverage)
+au FileType go nmap <Leader>ds <Plug>(go-def-split)
+au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+au FileType go nmap <Leader>gd <Plug>(go-doc)
+au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+au FileType go nmap <Leader>gs <Plug>(go-implements)
+au FileType go nmap <Leader>ge <Plug>(go-rename)
 
 """autocmd FileType erlang set tags+=/home/yk/dev/erlang/ctags.otp
 """autocmd FileType go set tags+=/home/yk/dev/golang/ctags.go
