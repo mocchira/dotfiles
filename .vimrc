@@ -84,8 +84,6 @@ set wrap
 nnoremap <C-k> ^d$
 nnoremap <C-a> <home>
 nnoremap <C-e> <End>
-nnoremap / :M/
-nnoremap ,/ /
 nnoremap ,s :FufFile<CR>
 nmap ,p :set paste!<CR>
 
