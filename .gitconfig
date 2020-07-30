@@ -116,12 +116,12 @@
     local = yellow
     remote = green
 
-[color "diff"]
+; [color "diff"]
 
-    meta = yellow bold
-    frag = magenta bold # line info
-    old = red # deletions
-    new = green # additions
+;     meta = yellow bold
+;     frag = magenta bold # line info
+;     old = red # deletions
+;     new = green # additions
 
 [color "status"]
 
