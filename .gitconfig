@@ -1,6 +1,6 @@
 [user]
-	name = mocchira
-	email = nekotaroh@gmail.com
+    name = mocchira
+    email = nekotaroh@gmail.com
 [alias]
 
     # View abbreviated SHA, description, and history graph of the latest 20 commits
