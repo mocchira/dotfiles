@@ -44,6 +44,9 @@ Plugin 'tpope/vim-fugitive'
 
 "# Go Related
 Plugin 'fatih/vim-go'
+Plugin 'Shougo/deoplete.nvim'
+Plugin 'roxma/nvim-yarp'
+Plugin 'roxma/vim-hug-neovim-rpc'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -157,6 +160,28 @@ au FileType go nmap <Leader>gd <Plug>(go-doc)
 au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
 au FileType go nmap <Leader>gs <Plug>(go-implements)
 au FileType go nmap <Leader>ge <Plug>(go-rename)
+
+" neocomplete like
+set completeopt+=noinsert
+" deoplete.nvim recommend
+set completeopt+=noselect
+
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_fmt_command = "goimports"
+let g:go_auto_type_info = 1
+
+let g:deoplete#enable_at_startup = 1
+call deoplete#custom#option('omni_patterns', {
+		\ 'ruby': ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::'],
+		\ 'java': '[^. *\t]\.\w*',
+		\ 'go': '[^. *\t]\.\w*',
+		\ 'html': ['<', '</', '<[^>]*\s[[:alnum:]-]*'],
+		\ 'xhtml': ['<', '</', '<[^>]*\s[[:alnum:]-]*'],
+		\ 'xml': ['<', '</', '<[^>]*\s[[:alnum:]-]*'],
+		\})
+"au filetype go inoremap <buffer> . .<C-x><C-o>
 
 """autocmd FileType erlang set tags+=/home/yk/dev/erlang/ctags.otp
 """autocmd FileType go set tags+=/home/yk/dev/golang/ctags.go
